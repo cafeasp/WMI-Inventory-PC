@@ -1,0 +1,30 @@
+//Note lbl is a name of a label in windows forms.
+cmWMI t = new cmWMI();
+            t.getComputerSystemValues();
+            foreach (cmComputerSystem pc in t.ComputerSystem)
+            {
+                lblUserName.Text = pc.UserName;
+                lblCPU.Text = pc.NumberOfProcessors;
+                lblLogicalCPU.Text = pc.NumberOfLogicalProcessors;
+                lblDesc.Text = pc.Description;
+                lblDNSHostName.Text = pc.DNSHostName;
+                lblManufacturer.Text = pc.Manufacturer;
+                lblModel.Text = pc.Model;
+                lblName.Text = pc.Name;
+                lblTotalPhysicalMemory.Text = ConvertBytesToMegabytes(long.Parse(pc.TotalPhysicalMemory)).ToString();
+            }
+
+            foreach (cmComputerSystemProduct pcSystem in t.ComputerSystemProduct)
+            {
+                lblSerial.Text = pcSystem.IndentifyingNumber;
+            }
+
+            this.dataGridViewDrives.DataSource = t.ComputerDrives;
+            //this.dataGridViewNetworkAdapters.DataSource = t.ComputerNetworkAdapters;
+            this.dataGridViewNetworkAdapters.DataSource = t.ComputerNetworkAdapterConfig;
+            this.dataGridViewPrinter.DataSource = t.ComputerPrinters;
+
+//static double ConvertBytesToMegabytes(long bytes)
+        //{
+          //  return (bytes / 1024f) / 1024f;
+        //}
